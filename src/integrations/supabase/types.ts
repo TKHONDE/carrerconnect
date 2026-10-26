@@ -14,16 +14,250 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      applications: {
+        Row: {
+          cover_letter: string | null
+          created_at: string
+          cv_path: string | null
+          employer_note: string | null
+          id: string
+          status: Database["public"]["Enums"]["application_status"]
+          student_id: string
+          updated_at: string
+          vacancy_id: string
+        }
+        Insert: {
+          cover_letter?: string | null
+          created_at?: string
+          cv_path?: string | null
+          employer_note?: string | null
+          id?: string
+          status?: Database["public"]["Enums"]["application_status"]
+          student_id: string
+          updated_at?: string
+          vacancy_id: string
+        }
+        Update: {
+          cover_letter?: string | null
+          created_at?: string
+          cv_path?: string | null
+          employer_note?: string | null
+          id?: string
+          status?: Database["public"]["Enums"]["application_status"]
+          student_id?: string
+          updated_at?: string
+          vacancy_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "applications_vacancy_id_fkey"
+            columns: ["vacancy_id"]
+            isOneToOne: false
+            referencedRelation: "vacancies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      companies: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          industry: string | null
+          location: string | null
+          name: string
+          owner_id: string
+          verified: boolean
+          website: string | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          industry?: string | null
+          location?: string | null
+          name: string
+          owner_id: string
+          verified?: boolean
+          website?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          industry?: string | null
+          location?: string | null
+          name?: string
+          owner_id?: string
+          verified?: boolean
+          website?: string | null
+        }
+        Relationships: []
+      }
+      notifications: {
+        Row: {
+          created_at: string
+          id: string
+          link: string | null
+          message: string
+          read: boolean
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          link?: string | null
+          message: string
+          read?: boolean
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          link?: string | null
+          message?: string
+          read?: boolean
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          bio: string | null
+          created_at: string
+          cv_path: string | null
+          email: string | null
+          full_name: string
+          id: string
+          phone: string | null
+          programme: string | null
+          skills: string | null
+          student_number: string | null
+          updated_at: string
+          year_of_study: string | null
+        }
+        Insert: {
+          bio?: string | null
+          created_at?: string
+          cv_path?: string | null
+          email?: string | null
+          full_name?: string
+          id: string
+          phone?: string | null
+          programme?: string | null
+          skills?: string | null
+          student_number?: string | null
+          updated_at?: string
+          year_of_study?: string | null
+        }
+        Update: {
+          bio?: string | null
+          created_at?: string
+          cv_path?: string | null
+          email?: string | null
+          full_name?: string
+          id?: string
+          phone?: string | null
+          programme?: string | null
+          skills?: string | null
+          student_number?: string | null
+          updated_at?: string
+          year_of_study?: string | null
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      vacancies: {
+        Row: {
+          company_id: string
+          created_at: string
+          deadline: string | null
+          description: string
+          employer_id: string
+          id: string
+          industry: string
+          location: string
+          qualification: string | null
+          requirements: string | null
+          status: Database["public"]["Enums"]["vacancy_status"]
+          title: string
+          type: Database["public"]["Enums"]["vacancy_type"]
+        }
+        Insert: {
+          company_id: string
+          created_at?: string
+          deadline?: string | null
+          description: string
+          employer_id: string
+          id?: string
+          industry: string
+          location: string
+          qualification?: string | null
+          requirements?: string | null
+          status?: Database["public"]["Enums"]["vacancy_status"]
+          title: string
+          type?: Database["public"]["Enums"]["vacancy_type"]
+        }
+        Update: {
+          company_id?: string
+          created_at?: string
+          deadline?: string | null
+          description?: string
+          employer_id?: string
+          id?: string
+          industry?: string
+          location?: string
+          qualification?: string | null
+          requirements?: string | null
+          status?: Database["public"]["Enums"]["vacancy_status"]
+          title?: string
+          type?: Database["public"]["Enums"]["vacancy_type"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vacancies_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "employer" | "student"
+      application_status: "submitted" | "shortlisted" | "rejected" | "accepted"
+      vacancy_status: "pending" | "approved" | "rejected" | "closed"
+      vacancy_type: "internship" | "job" | "graduate"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +384,11 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "employer", "student"],
+      application_status: ["submitted", "shortlisted", "rejected", "accepted"],
+      vacancy_status: ["pending", "approved", "rejected", "closed"],
+      vacancy_type: ["internship", "job", "graduate"],
+    },
   },
 } as const
