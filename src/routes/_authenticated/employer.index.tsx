@@ -111,7 +111,7 @@ function CompanyForm({ company, onSaved }: { company: Company; onSaved: () => vo
 function NewVacancy({ companyId, onDone }: { companyId: string; onDone: () => void }) {
   const { session } = useAuth();
   const [open, setOpen] = useState(false);
-  const empty = { title: "", type: "internship", industry: INDUSTRIES[0], location: "", qualification: "", description: "", requirements: "", deadline: "" };
+  const empty = { title: "", type: "internship", industry: INDUSTRIES[0] ?? "Other", location: "", qualification: "", description: "", requirements: "", deadline: "" };
   const [f, setF] = useState(empty);
   async function save(e: React.FormEvent) {
     e.preventDefault();

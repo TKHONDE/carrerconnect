@@ -99,7 +99,7 @@ function Reports() {
           {byIndustry.map(([k, n]) => (
             <div key={k} className="flex items-center gap-3 text-sm">
               <span className="w-48 shrink-0">{k}</span>
-              <div className="h-2 rounded-full bg-accent" style={{ width: `${(n / byIndustry[0][1]) * 60}%` }} />
+              <div className="h-2 rounded-full bg-accent" style={{ width: `${(n / (byIndustry[0]?.[1] ?? 1)) * 60}%` }} />
               <span className="text-muted-foreground">{n}</span>
             </div>
           ))}
