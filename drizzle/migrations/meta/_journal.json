@@ -8,6 +8,13 @@
       "when": 1793051432808,
       "tag": "0000_careerconnect_schema",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793095141167,
+      "tag": "0001_restrict_companies_select",
+      "breakpoints": true
     }
   ]
 }
